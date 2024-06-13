@@ -2,6 +2,11 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtypet/models/doctor.dart';
+import 'package:healtypet/models/service.dart';
+
+List<String>services = Service.all();
+var selectedService = 0;
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -14,13 +19,136 @@ class Home extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 22),
+            const SizedBox(height: 24),
             _greetings(),
-            const SizedBox(height: 17),
+            const SizedBox(height: 16),
             _card(),
+            const SizedBox(height: 20),
+            _search(),
+            const SizedBox(height: 20),
+            _sevices(),
+            const SizedBox(height: 26),
+            _doctors(),
           ],
         ),
       )
+    );
+  }
+
+  ListView _doctors() {
+    return ListView.separated(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (context, index) => _doctor(doctors[index]),
+      separatorBuilder: (context, index) => const SizedBox(height: 11), 
+      itemCount: doctors.length   
+    );
+  }
+
+  Container _doctor(Doctor doctor) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF35385A).withOpacity(.12),
+            blurRadius: 30,
+            offset: const Offset(0, 2)
+          )
+        ]
+      ),
+      child: Row(
+        children: [
+          Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8)
+            ),
+            child: Image.asset("assets/images/doctor/${doctor.image}", width: 88, height: 103),
+          ),
+          const SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(doctor.name, style: GoogleFonts.manrope(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF3F3E3F)
+              )),
+              const SizedBox(height: 7),
+              RichText(
+                text: TextSpan(
+                  text: "Service: ${doctor.service.join(', ')}",
+                  style: GoogleFonts.manrope(
+                    fontSize: 12,
+                    color: Colors.black,
+                  )
+                )
+              ),
+              const SizedBox(height: 7),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  SizedBox _sevices() {
+    return SizedBox(
+      height: 36,
+      child: ListView.separated(
+        padding: const  EdgeInsets.symmetric(horizontal: 20),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) => Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: selectedService == index ? const Color(0xFF818AF9) : const Color(0xFFF6F6F6),
+            borderRadius: BorderRadius.circular(10),
+            border: selectedService == index ? Border.all(color: const Color(0XFFF1E5E5).withOpacity(.22), width: 2) : null
+          ),
+          child: Center(
+            child: Text(
+              services[index],
+              style: GoogleFonts.manrope(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: selectedService == index ? Colors.white : const Color(0xFF3F3E3F).withOpacity(.3)
+              ),
+            ),
+          )
+        ), 
+        separatorBuilder: (context, index) => const SizedBox(width: 10), 
+        itemCount: services.length
+      ),
+    );
+  }
+
+  Widget _search() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF6F6F6),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextFormField(
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          prefixIcon: const Icon(
+            FeatherIcons.search,
+            color: Color(0xFFADACAD)
+          ),
+          hintText: "Find best vaccinate, treatment...",
+          hintStyle: GoogleFonts.manrope(
+            fontSize: 12, 
+            fontWeight: FontWeight.bold,
+            color: const Color(0xFFCACACA),
+            height: 150 / 100,
+          )
+        ),
+      ),
     );
   }
 
