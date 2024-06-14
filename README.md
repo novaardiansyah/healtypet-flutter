@@ -73,11 +73,11 @@ Contributions are what make the open-source community such an amazing place to l
 
 ## 📞 Let's Connect!
 
-Need to chat? Feel free to drop me a line via [Email](mailto:novaardiansyah78@gmail.com) or hit me up on  [Whatsapp](https://wa.me/6289506668480?text=Hi%20Nova,%20I%20have%20a%20question%20about%20your%20project:%https://github.com/novaardiansyah/healtypet-flutter/) I'm just a message away, ready to groove with you! 📩
+Need to chat? Feel free to drop me a line via [Email](mailto:novaardiansyah78@gmail.com) or hit me up on  [Whatsapp](https://wa.me/6289506668480?text=Hi%20Nova,%20I%20have%20a%20question%20about%20your%20project:%20https://github.com/novaardiansyah/healtypet-flutter/) I'm just a message away, ready to groove with you! 📩
 
 ---
 
-Thank you for checking out Weather Tracker! We hope you enjoy using it as much as we enjoyed building it. Happy coding! 🚀
+Thank you for checking out our Application! We hope you enjoy using it as much as we enjoyed building it. Happy coding! 🚀
 
 
 ## 🚀 Project Status  
