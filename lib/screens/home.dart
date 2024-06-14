@@ -6,6 +6,14 @@ import 'package:healtypet/models/doctor.dart';
 import 'package:healtypet/models/service.dart';
 
 List<String>services = Service.all();
+
+var menus = [
+  FeatherIcons.home,
+  FeatherIcons.heart,
+  FeatherIcons.messageCircle,
+  FeatherIcons.user,
+];  
+
 var selectedService = 0;
 
 class Home extends StatelessWidget {
@@ -17,21 +25,49 @@ class Home extends StatelessWidget {
     
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 24),
-            _greetings(),
-            const SizedBox(height: 16),
-            _card(),
-            const SizedBox(height: 20),
-            _search(),
-            const SizedBox(height: 20),
-            _sevices(),
-            const SizedBox(height: 26),
-            _doctors(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 24),
+              _greetings(),
+              const SizedBox(height: 16),
+              _card(),
+              const SizedBox(height: 20),
+              _search(),
+              const SizedBox(height: 20),
+              _sevices(),
+              const SizedBox(height: 26),
+              _doctors(),
+              const SizedBox(height: 26),
+            ],
+          ),
+        )
+      ),
+      bottomNavigationBar: Container(
+        height: 76,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.03),
+              blurRadius: 30,
+              offset: const Offset(0, -10)
+            )
           ],
+          color: Colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20))
         ),
-      )
+        child: BottomNavigationBar(
+          selectedItemColor: const Color(0xFF818AF9),
+          unselectedItemColor: const Color(0xFFBFBFBF),
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          items: menus.map((e) => BottomNavigationBarItem(
+            icon: Icon(e),
+            label: e.toString(),
+          )).toList(),
+        ),
+      ),
     );
   }
 
@@ -70,26 +106,64 @@ class Home extends StatelessWidget {
             child: Image.asset("assets/images/doctor/${doctor.image}", width: 88, height: 103),
           ),
           const SizedBox(width: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(doctor.name, style: GoogleFonts.manrope(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xFF3F3E3F)
-              )),
-              const SizedBox(height: 7),
-              RichText(
-                text: TextSpan(
-                  text: "Service: ${doctor.service.join(', ')}",
-                  style: GoogleFonts.manrope(
-                    fontSize: 12,
-                    color: Colors.black,
+          Flexible(
+            fit: FlexFit.tight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(doctor.name, style: GoogleFonts.manrope(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF3F3E3F)
+                )),
+                const SizedBox(height: 7),
+                RichText(
+                  text: TextSpan(
+                    text: "Service: ${doctor.service.join(', ')}",
+                    style: GoogleFonts.manrope(
+                      fontSize: 12,
+                      color: Colors.black,
+                    )
                   )
-                )
-              ),
-              const SizedBox(height: 7),
-            ],
+                ),
+                const SizedBox(height: 7),
+                Row(
+                  children: [
+                    const Icon(FeatherIcons.mapPin, 
+                      size: 14,
+                      color: Color(0xFFACA3A3),
+                    ),
+                    const SizedBox(width: 7),
+                    Text(
+                      doctor.distance,
+                      style: GoogleFonts.manrope(
+                        fontSize: 12,
+                        color: const Color(0xFFACA3A3)
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 7),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("Available for", style: GoogleFonts.manrope(
+                      color: const Color(0xFF50CC98),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    )),
+                    Row(
+                      children: [
+                        Image.asset('assets/images/icon/whh_cat.png'),
+                        const SizedBox(width: 10),
+                        Image.asset('assets/images/icon/whh_dog.png')
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
